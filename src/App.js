@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <h2>Hello World</h2>
-      <ExpenseItem var1={expenses[1].title} var2={expenses[1].amount} var3={expenses[1].date}></ExpenseItem>
+      <ExpenseItem expenseList={expenses}></ExpenseItem>
     </div>
   );
 }
