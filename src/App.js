@@ -1,5 +1,5 @@
 import './App.css';
-import ExpenseItem from './components/ExpenseItem';
+import Expense from './components/Expense';
 
 function App() {
 
@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <h2>Hello World</h2>
-      <ExpenseItem expenses={expenses}></ExpenseItem>
+      <Expense expenses={expenses}></Expense>
     </div>
   );
 }
