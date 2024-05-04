@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <h2>Hello World</h2>
-      <Expense expenses={expenses}></Expense>
+      <Expense bien1={expenses} ></Expense>
     </div>
   );
 }
