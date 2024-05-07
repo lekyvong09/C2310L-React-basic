@@ -1,4 +1,4 @@
-import Card from './Card';
+import Card from '../UI/Card';
 import ExpenseDate from './ExpenseDate';
 import './ExpenseItem.css';
 
@@ -11,6 +11,7 @@ function ExpenseItem(props) { /// Expense
             <div className='expense-item__description'>
                 <h2>{props.expense.title}</h2>
                 <div className='expense-item__price'>$ {props.expense.amount}</div>
+                <button onClick={() => {console.log('click');}}  >Click me</button>
             </div>
         </Card>
     );
