@@ -2,9 +2,14 @@ import ExpenseForm from "./ExpenseForm";
 
 
 function NewExpense() {
+
+    const saveExpense = (data) => {
+        console.log(data);
+    }
+
     return (
         <>
-            <ExpenseForm />
+            <ExpenseForm onSaveExpenseData={saveExpense} />
         </>
     );
 }
