@@ -1,10 +1,17 @@
 import ExpenseForm from "./ExpenseForm";
 
 
-function NewExpense() {
+function NewExpense(props) {
 
     const saveExpense = (data) => {
-        console.log(data);
+        const newData = {
+            ...data,
+            // title: '222',
+            // amount: 222,
+            // date: new Date(efew),
+            id: Math.random()
+        };
+        props.onAddExpenseHandler(newData);
     }
 
     return (
@@ -13,5 +20,6 @@ function NewExpense() {
         </>
     );
 }
+
 
 export default NewExpense;
