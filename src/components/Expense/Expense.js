@@ -12,10 +12,11 @@ function Expense(props) { /// Expense[]
     //         expense={item}
     //     ></ExpenseItem>
     // }
+    // console.log(props);
 
     return (
         <Card className="expenses">
-            {props.bien1.map(item => (
+            {props.bien1.filter(e => e.date.getFullYear() === 2024).map(item => (
                 <ExpenseItem
                     key={item.id}
                     expense={item}
