@@ -1,11 +1,12 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 
-function ExpenseFilter() {
+function ExpenseFilter(props) {
   const [selectedYear, setSelectedYear] = useState('');
 
   const handleChange = (event) => {
     setSelectedYear(event.target.value);
+    props.onGetYearFilter(event.target.value);
   };
 
   return (
@@ -14,7 +15,7 @@ function ExpenseFilter() {
             <InputLabel 
               id="demo-simple-select-label"
               sx={{color: 'white', fontWeight: 'bold'}}
-            >Age</InputLabel>
+            >Year</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
