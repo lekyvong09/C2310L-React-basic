@@ -17,12 +17,16 @@ function ExpenseFilter(props) {
               sx={{color: 'white', fontWeight: 'bold'}}
             >Year</InputLabel>
             <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={selectedYear}
-                label="Year"
-                onChange={handleChange}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedYear}
+              label="Year"
+              onChange={handleChange}
+              sx={{color:'white'}}
             >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
                 <MenuItem value={2022}>2022</MenuItem>
                 <MenuItem value={2023}>2023</MenuItem>
                 <MenuItem value={2024}>2024</MenuItem>
