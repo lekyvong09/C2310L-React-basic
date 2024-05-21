@@ -10,8 +10,23 @@ function ExpenseForm(props) {
     const [category, setCategory] = useState('');
     const [amount, setAmount] = useState('');
 
+    const [isValidTitle, setIsValidTitle] = useState(false);
+    const [isValidAmount, setIsValidAmount] = useState(false);
+
+
     const submitHandler = (event) => {
         event.preventDefault();
+
+        if (title.trim() === '') {
+            setIsValidTitle(true);
+            return;
+        } 
+
+        if (!(amount.trim() !== '' && !isNaN(amount))) {
+            setIsValidAmount(true);
+            return;
+        } 
+
         var data = {
             title: title,
             amount: amount,
@@ -20,6 +35,11 @@ function ExpenseForm(props) {
         }
         
         props.onSaveExpenseData(data);
+
+        setTitle('');
+        setIsValidTitle(false);
+        setAmount('');
+        setIsValidAmount(false);
     }
 
     const handleChange = (event) => {
@@ -31,7 +51,9 @@ function ExpenseForm(props) {
             <form onSubmit={submitHandler}>
                 <Stack spacing={2} pt={5}>
                     <TextField 
-                        id="form-title" 
+                        id="form-title"
+                        error={isValidTitle}
+                        helperText= {isValidTitle ? "Incorrect entry." : ""}
                         label="Title" 
                         variant="outlined"
                         value={title}
@@ -57,9 +79,11 @@ function ExpenseForm(props) {
                     <TextField 
                         id="form-amount" 
                         label="Amount" 
-                        type="number"
+                        // type="number"
                         variant="outlined" 
                         value={amount}
+                        error={isValidAmount}
+                        helperText= {isValidAmount ? "Incorrect entry." : ""}
                         onChange={(event) => {
                             setAmount(event.target.value);
                         }}
