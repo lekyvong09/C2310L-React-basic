@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import Expense from './components/Expense/Expense';
 import NewExpense from './components/NewExpense/NewExpense';
+import Navigation from './components/Navigation/Navigation';
 
 const initialExpenses = [
   {id: 1, title: 'Petrol Gas', amount: 5, date: new Date(2022, 4, 27), category: 'Essential'}, /// expense[0]
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div>
+      <Navigation />
       <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
       <Expense bien1={expenses} ></Expense>
     </div>
