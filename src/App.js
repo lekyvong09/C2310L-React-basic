@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Expense from './components/Expense/Expense';
 import NewExpense from './components/NewExpense/NewExpense';
@@ -18,10 +18,12 @@ function App() {
 
   const loginHandler = (username, password) => {
     ///// if (username === 'dffs' && password === 'dddd') => (true && true) => true
-      setIsLoggedIn(true);
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedInStatus', '1');
   }
   const logoutHandler = () => {
     setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedInStatus');
   }
 
   const addExpenseHandler = (data) => {
@@ -30,6 +32,12 @@ function App() {
       return [data, ...previousState];
     });
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('isLoggedInStatus') === '1') {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <>

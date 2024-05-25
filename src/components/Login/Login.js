@@ -1,41 +1,64 @@
 import { Button, Container, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
+
+const usernameReducer = (state, action) => {
+    if (action.type === 'USERNAME_INPUT_CHANGE') { /// action.type: nop them tien
+        return {
+            value: action.payload, /// action.payload: nop them bao nhieu tien vd $10
+            isValid: action.payload.trim() !== 0
+        };
+    }
+    if (action.type === 'USERNAME_INPUT_BLUR') {
+        return {
+            value: state.value, /// lay lai trang thai (gia tri) cu
+            isValid: state.value.trim() !== 0
+        };
+    }
+}
 
 export default function Login(props) {
-    const [username, setUsername] = useState('');
+    // const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const [isValidUsername, setIsValidUsername] = useState(true);
+    const [usernameState, usernameDispatcher] = useReducer(usernameReducer, {value: '', isValid: null});
+
+    // const [isValidUsername, setIsValidUsername] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
     const [formIsValid, setFormIsValid] = useState(false);
 
     const validateUsername = () => {
         /// if username.trim() !== '' then true
         /// else (if) username.trim() === '' then false
-        setIsValidUsername(username.trim() !== ''); 
+        // setIsValidUsername(username.trim() !== ''); 
+        usernameDispatcher({type: 'USERNAME_INPUT_BLUR'});
     }
 
     const validatePassword = () => {
         setIsValidPassword(password.trim() !== ''); 
     }
 
+    // useEffect(() => {
+    //     setFormIsValid(username.trim() !== '' && password.trim() !== '');
+    // }, [password, username]);
+
     const usernameChange = (event) => {
-        setUsername(event.target.value);
+        // setUsername(event.target.value);
+        usernameDispatcher({type: 'USERNAME_INPUT_CHANGE', payload: event.target.value});
         setFormIsValid(event.target.value.trim() !== '' && password.trim() !== '');
     }
     const passwordChange = (event) => {
         setPassword(event.target.value);
-        setFormIsValid(event.target.value.trim() !== '' && username.trim() !== '');
+        setFormIsValid(event.target.value.trim() !== '' && usernameState.isValid);
     }
 
     const submitHandler = (event) => {
         event.preventDefault();
 
-        props.onLoginHandler(username, password);
+        props.onLoginHandler(usernameState.value, password);
 
-        setUsername('');
-        setIsValidUsername(true);
+        // setUsername('');
+        // setIsValidUsername(true);
         setPassword('');
         setIsValidPassword(true);
         setFormIsValid(false);
@@ -47,11 +70,11 @@ export default function Login(props) {
                 <Stack spacing={2} pt={5}>
                     <TextField 
                         id="form-username"
-                        error={!isValidUsername}
-                        helperText= {!isValidUsername ? "Incorrect entry." : ""}
+                        error={usernameState.isValid === false}
+                        helperText= {usernameState.isValid === false ? "Incorrect entry." : ""}
                         label="Username" 
                         variant="outlined"
-                        value={username}
+                        value={usernameState.value}
                         onBlur={validateUsername}
                         onChange={usernameChange}
                     />
