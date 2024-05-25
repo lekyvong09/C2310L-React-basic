@@ -17,7 +17,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const loginHandler = (username, password) => {
-    ///// if (username === 'dffs' && password === 'dddd')
+    ///// if (username === 'dffs' && password === 'dddd') => (true && true) => true
       setIsLoggedIn(true);
   }
   const logoutHandler = () => {
@@ -32,11 +32,16 @@ function App() {
   }
 
   return (
-    <Navigation>
-      <Login onLoginHandler={loginHandler}></Login>
-      <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
-      <Expense bien1={expenses} ></Expense>
-    </Navigation>
+    <>
+      { isLoggedIn &&
+        <Navigation onLogoutHandler={logoutHandler}>
+          <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
+          <Expense bien1={expenses} ></Expense>
+        </Navigation>
+      }
+
+      { !isLoggedIn && <Login onLoginHandler={loginHandler}></Login> }
+    </>
   );
 }
 

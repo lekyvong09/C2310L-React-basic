@@ -2,7 +2,7 @@ import { Button, Container, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 
 
-export default function Login() {
+export default function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -32,12 +32,7 @@ export default function Login() {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        var data = {
-            username: username,
-            password: password
-        }
-        
-        console.log(data);
+        props.onLoginHandler(username, password);
 
         setUsername('');
         setIsValidUsername(true);

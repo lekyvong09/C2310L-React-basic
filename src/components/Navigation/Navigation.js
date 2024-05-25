@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { Button } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -94,6 +95,8 @@ export default function Navigation(props) {
                 <Typography variant="h6" noWrap component="div">
                     Persistent drawer
                 </Typography>
+
+                <Button color='inherit' onClick={props.onLogoutHandler}>Logout</Button>
             </Toolbar>
         </AppBar>
         <Drawer
