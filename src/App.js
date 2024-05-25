@@ -3,6 +3,7 @@ import './App.css';
 import Expense from './components/Expense/Expense';
 import NewExpense from './components/NewExpense/NewExpense';
 import Navigation from './components/Navigation/Navigation';
+import Login from './components/Login/Login';
 
 const initialExpenses = [
   {id: 1, title: 'Petrol Gas', amount: 5, date: new Date(2022, 4, 27), category: 'Essential'}, /// expense[0]
@@ -12,8 +13,16 @@ const initialExpenses = [
 ];
 
 function App() {
-
   const [expenses, setExpenses] = useState(initialExpenses);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const loginHandler = (username, password) => {
+    ///// if (username === 'dffs' && password === 'dddd')
+      setIsLoggedIn(true);
+  }
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+  }
 
   const addExpenseHandler = (data) => {
     // setExpenses([...expenses, data]);
@@ -23,11 +32,11 @@ function App() {
   }
 
   return (
-    <div>
-      <Navigation />
+    <Navigation>
+      <Login onLoginHandler={loginHandler}></Login>
       <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
       <Expense bien1={expenses} ></Expense>
-    </div>
+    </Navigation>
   );
 }
 
