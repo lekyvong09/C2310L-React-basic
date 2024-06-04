@@ -20,9 +20,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Button } from '@mui/material';
 import { DrawerHeader } from '../UI/styledMUI';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
-
 
 
 
@@ -52,6 +52,17 @@ export default function Navigation(props) {
     const handleDrawerClose = () => {
         props.onOpenDrawer(false);
     };
+
+    const path = (index) => {
+        switch (index) {
+            case 0:
+                return "/manage-product";
+            case 1:
+                return "/shop";
+            default:
+                return "/shop";
+        }
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -94,11 +105,11 @@ export default function Navigation(props) {
             </DrawerHeader>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                {['Manage Product', 'Shop'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton component={Link} to={path(index)} >
                             <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
@@ -106,18 +117,7 @@ export default function Navigation(props) {
                 ))}
                 </List>
             <Divider />
-            <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                <ListItem key={text} disablePadding>
-                    <ListItemButton>
-                        <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
-            </List>
+
         </Drawer>
 
         </Box>

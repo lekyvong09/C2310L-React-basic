@@ -5,6 +5,8 @@ import NewExpense from './components/NewExpense/NewExpense';
 import Navigation from './components/Navigation/Navigation';
 import Login from './components/Login/Login';
 import { DrawerHeader, Main } from './components/UI/styledMUI';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import ProtectedRoute from './guard/ProtectedRoute';
 
 const initialExpenses = [
   {id: 1, title: 'Petrol Gas', amount: 5, date: new Date(2022, 4, 27), category: 'Essential'}, /// expense[0]
@@ -14,6 +16,7 @@ const initialExpenses = [
 ];
 
 function App() {
+  const navigate = useNavigate();
   const [expenses, setExpenses] = useState(initialExpenses);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -26,10 +29,12 @@ function App() {
     ///// if (username === 'dffs' && password === 'dddd') => (true && true) => true
     setIsLoggedIn(true);
     localStorage.setItem('isLoggedInStatus', '1');
+    navigate('/manage-product');
   }
   const logoutHandler = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('isLoggedInStatus');
+    navigate('/');
   }
 
   const addExpenseHandler = (data) => {
@@ -54,15 +59,21 @@ function App() {
                   isLoggedIn={isLoggedIn} /> 
       }
 
-      { isLoggedIn &&  
-        <Main open={isDrawerOpen}>
-          <DrawerHeader />
-          <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
-          <Expense bien1={expenses} ></Expense>
-        </Main>
-      }
+      <Routes>
+        <Route index element={<Login onLoginHandler={loginHandler}></Login>}/>
 
-      { !isLoggedIn && <Login onLoginHandler={loginHandler}></Login> }
+        <Route element={<ProtectedRoute />} >
+          <Route path='manage-product' element={
+            <Main open={isDrawerOpen}>
+              <DrawerHeader />
+              <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
+              <Expense bien1={expenses} ></Expense>
+            </Main>
+          }/>
+        </Route>
+        
+      </Routes>
+
     </>
   );
 }
