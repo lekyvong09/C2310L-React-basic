@@ -4,6 +4,7 @@ import Expense from './components/Expense/Expense';
 import NewExpense from './components/NewExpense/NewExpense';
 import Navigation from './components/Navigation/Navigation';
 import Login from './components/Login/Login';
+import { DrawerHeader, Main } from './components/UI/styledMUI';
 
 const initialExpenses = [
   {id: 1, title: 'Petrol Gas', amount: 5, date: new Date(2022, 4, 27), category: 'Essential'}, /// expense[0]
@@ -15,6 +16,11 @@ const initialExpenses = [
 function App() {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const openDrawer = (isOpen) => {
+    setIsDrawerOpen(isOpen);
+  }
 
   const loginHandler = (username, password) => {
     ///// if (username === 'dffs' && password === 'dddd') => (true && true) => true
@@ -41,11 +47,19 @@ function App() {
 
   return (
     <>
-      { isLoggedIn &&
-        <Navigation onLogoutHandler={logoutHandler}>
+      { isLoggedIn && 
+        <Navigation onLogoutHandler={logoutHandler} 
+                  onOpenDrawer={openDrawer} 
+                  isDrawerOpen={isDrawerOpen} 
+                  isLoggedIn={isLoggedIn} /> 
+      }
+
+      { isLoggedIn &&  
+        <Main open={isDrawerOpen}>
+          <DrawerHeader />
           <NewExpense onAddExpenseHandler={addExpenseHandler}></NewExpense>
           <Expense bien1={expenses} ></Expense>
-        </Navigation>
+        </Main>
       }
 
       { !isLoggedIn && <Login onLoginHandler={loginHandler}></Login> }
